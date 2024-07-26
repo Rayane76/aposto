@@ -6,15 +6,17 @@ import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import { Button } from "react-bootstrap";
+import { createCategorie } from "./action";
 
 
 
 export default function NewCategorie(){
+
+    const router = useRouter();
+
     const [categorieNew,setCategorieNew] = useState({
         name: "",
-        hide: false,
         image: "",
-        articles: [],
     });
 
     const handleChangeCategorie = (e)=>{
@@ -23,7 +25,8 @@ export default function NewCategorie(){
 
     const handleSubmitCategorie = async (e)=> {
         e.preventDefault();
-       
+        await createCategorie(categorieNew);
+        router.back();
     }
 
     const handleAddImage = (e)=>{
@@ -51,7 +54,7 @@ export default function NewCategorie(){
         <input style={{width:"100%",height:"40px",borderRadius:"5px"}} name="name" required onChange={(e)=>handleChangeCategorie(e)}></input>
         <br></br>
         <label style={{marginTop:"50px",marginRight:"20px"}}>Image : </label>
-        <CldUploadButton className="btn btn-secondary" required onSuccess={(e)=>handleAddImage(e)} uploadPreset="jcejqihu" />
+        <CldUploadButton className="btn btn-secondary" required onSuccess={(e)=>handleAddImage(e)} uploadPreset="aposto" />
         <br></br>
         {categorieNew.image != "" && <img src={categorieNew.image} style={{height:"200px",width:"auto",maxWidth:"200px"}}></img>}
         <div style={{display:"flex",justifyContent:"center",marginTop:"200px"}}>
