@@ -41,7 +41,7 @@ model Color {
   name       String
   isOutColor Boolean
   secName    String
-  sizes      Size[]
+  sizes      Size[] 
   article    Article @relation(fields: [articleId], references: [id])
   articleId  String  @db.ObjectId
 }

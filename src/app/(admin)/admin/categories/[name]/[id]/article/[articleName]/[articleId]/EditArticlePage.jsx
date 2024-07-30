@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CldUploadButton } from 'next-cloudinary';
 import { useRouter } from "next/navigation";
 import Typography from '@mui/material/Typography';
@@ -8,12 +8,15 @@ import Link from '@mui/material/Link';
 import { MdDelete } from "react-icons/md";
 import Checkbox from '@mui/material/Checkbox';
 import _ from 'lodash';
+import { updateArticle } from './action';
 
 
 
 
 
-export default function EditArticlePage({ article , categorieName , categorieId }){
+export default function EditArticlePage({ article , categorieName , categorieId , idArticle }){
+
+    const router = useRouter();
 
     const [originalArticle,setOriginalArticle] = useState({
         images: article.images,
@@ -31,6 +34,7 @@ export default function EditArticlePage({ article , categorieName , categorieId 
         colors: article.colors
     });
 
+    //to handle input of adding a new color
     const [typedColor,setTypedColor] = useState({
         name: "",
         secName:""
@@ -53,52 +57,101 @@ export default function EditArticlePage({ article , categorieName , categorieId 
         }
     }
 
-    const handleModifyColor = (index, newColor) => {
+    const [modifiedColors,setModifiedColors] = useState([]);
+    const [modifiedSizes,setModifiedSizes] = useState([]);
+    const [deletedColors,setDeletedColors] = useState([]);
+
+
+    const handleModifyColor = (index, value) => {
+        // to modify a color isOutColor field
         setModifiedArticle((prev) => {
             const colorsCopy = [...prev.colors];
 
             if (index >= 0 && index < colorsCopy.length) {
-                colorsCopy[index].isOutColor = newColor;
+                colorsCopy[index].isOutColor = value;
             }
 
             return {...prev,colors: colorsCopy}
         })
+
+        //add the modified color id to modifiedColors array
+
+        //check first if the modified color does not belong to a new added color
+        // because a new added color will be created after and can have on creation all values we want for any field
+        //we check by seeing if it has an id or no , if no it means it's a new color
+
+        if(modifiedArticle.colors[index].id){
+            if(!modifiedColors.some(obj => obj.id === modifiedArticle.colors[index].id)){
+                setModifiedColors((prev)=>([...prev,{id:modifiedArticle.colors[index].id, value: value}]));
+                }
+                //if the id does exist it means we changed it one time and now we are resetting it to initial value
+                //so there's no changes needed in backend so we delete it from modifiedSizes array
+                else{    
+                setModifiedColors(prev=> prev.filter(item => item.id !== modifiedArticle.colors[index].id));
+                }
+        }
+
+
     };
 
-    const [deletedColors,setDeletedColors] = useState([]);
-
-    const handleDeleteColor = (index) => {
-        setDeletedColors((prev)=>([...prev,modifiedArticle.colors[index].id]));
-        setModifiedArticle((prev)=>({...prev,colors:prev.colors.filter((_,i)=> i !== index)}));
-    }
-
-    const [modifiedSizes,setModifiedSizes] = useState([]);
-
-    const handleModifyColorSize = (index,j,value) => {
+    const handleModifyColorSize = (indexOfColor,indexOfSizeInColor,value) => {
         setModifiedArticle((prev)=> {
             const colorsCopy = [...prev.colors];
 
-            if (index >= 0 && index < colorsCopy.length) {
-                colorsCopy[index].sizes[j].isOutSize = value;
+            if (indexOfColor >= 0 && indexOfColor < colorsCopy.length) {
+                colorsCopy[indexOfColor].sizes[indexOfSizeInColor].isOutSize = value;
             }
 
             return {...prev,colors: colorsCopy}
 
         })
 
-        if(modifiedArticle.colors[index].sizes[j].id){
-            if(!modifiedSizes.includes(modifiedArticle.colors[index].sizes[j].id)){
-            setModifiedSizes((prev)=>([...prev,modifiedArticle.colors[index].sizes[j].id]));
+        //add the modified size id to modifiedSize array
+
+        //check first if the modified size does not belong to a new added color
+        // because a new added color will be created after and can have on creation all values we want for any field
+        if(modifiedArticle.colors[indexOfColor].sizes[indexOfSizeInColor].id){
+            //if the id doesn't exist in modifiedSize we add it so we can change isOutSize field
+            if(!modifiedSizes.some(obj => obj.id === modifiedArticle.colors[indexOfColor].sizes[indexOfSizeInColor].id)){
+            setModifiedSizes((prev)=>([...prev,{id: modifiedArticle.colors[indexOfColor].sizes[indexOfSizeInColor].id, value: value}]));
             }
-            else{
-            setModifiedSizes(prev=> prev.filter(item => item !== modifiedArticle.colors[index].sizes[j].id));
+            //if the id does exist it means we changed it one time and now we are resetting it to initial value
+            //so there's no changes needed in backend so we delete it from modifiedSizes array
+            else{    
+            setModifiedSizes(prev=> prev.filter(item => item.id !== modifiedArticle.colors[indexOfColor].sizes[indexOfSizeInColor].id));
             }
         }
     }
 
+
+    const handleDeleteColor = (index) => {
+        // first 5 lines to verify if i modified a size in that color before deleting it
+        // if i modified i delete it from modifiedSizes
+        modifiedArticle.colors[index].sizes.map((size)=>{
+            if(modifiedSizes.some(obj => obj.id === size.id)){
+                setModifiedSizes(prev => prev.filter(item => item.id !== size.id));
+            }
+        })
+
+        
+        // these 2 lines to verify if i modified a color before deleting it
+        //if i modified it it delete it from modifiedColors
+        if(modifiedColors.some(obj => obj.id === modifiedArticle.colors[index].id)){
+            setModifiedColors(prev => prev.filter(item => item.id !== modifiedArticle.colors[index].id));
+        }
+
+        //add deleted color id to a deletedColors array
+        setDeletedColors((prev)=>([...prev,modifiedArticle.colors[index].id]));
+        setModifiedArticle((prev)=>({...prev,colors:prev.colors.filter((_,i)=> i !== index)}));
+    }
+
+
+
     const handleAddColor = () => {
         if(typedColor.name != "" && typedColor.secName != ""){
          let sizes = [];
+         //give the new color the sizes of first color of initially fetched article
+         //useful when i delete all colors and then i want to create a new one
          originalArticle.colors[0].sizes.map((size)=>{
             sizes.push({
                 name: size.name,
@@ -111,6 +164,13 @@ export default function EditArticlePage({ article , categorieName , categorieId 
     }
 
     const handleSubmit = async () => {
+
+        let editArtcl = undefined;
+        let createClr = undefined;
+        let deleteClr = undefined;
+        let modifyClr = undefined;
+        let modifySz = undefined;
+
         let orig = {
             images: originalArticle.images,
             isOutArticle: originalArticle.isOutArticle,
@@ -126,38 +186,51 @@ export default function EditArticlePage({ article , categorieName , categorieId 
         }
 
         if (!_.isEqual(orig, nw)) {
-           console.log("not equal")
-           //modify article principal fields
+           const changes = _.omitBy(nw, (value, key) => _.isEqual(value, orig[key]));
+           changes.articleId = idArticle;
+           editArtcl = changes;
         }
+
         else {
             console.log("equal")
         }
 
+        //get newly added colors by filtering the colors the don't have an id
         let newColors = modifiedArticle.colors.filter(color=> !color.id);
         if(newColors.length > 0){
-            console.log(newColors);
             //map newColors and create new colors
+
+            let crt = [];
+            newColors.map((color)=>{
+                crt.push({
+                    articleId: idArticle,
+                    name: color.name,
+                    secName: color.secName,
+                    isOutColor: color.isOutColor,
+                    sizes: {
+                        create: color.sizes
+                    }
+                })
+            });
+
+            createClr = crt;
         }
 
         if(deletedColors.length > 0){
-            console.log(deletedColors);
-            //map deletedColors and delete colors
+            deleteClr = deletedColors;
         }
 
-        for (let i = 0; i < modifiedArticle.colors.length; i++) {
-            for (let j = 0; j < originalArticle.colors.length; j++) {
-               if(originalArticle.colors[j].id === modifiedArticle.colors[i].id && originalArticle.colors[j].isOutColor !== modifiedArticle.colors[i].isOutColor){
-                 console.log(modifiedArticle.colors[i]);
-                 // update color isOutColor
-               }             
-            }
+        if(modifiedColors.length > 0){
+            modifyClr = modifiedColors;
         }
 
         if(modifiedSizes.length > 0){
-            //update size isOutSize
+            modifySz = modifiedSizes;
         }
 
+        await updateArticle(editArtcl,createClr,deleteClr,modifyClr,modifySz);
 
+        router.push("/admin/categories/" + categorieName + "/" + categorieId);
 
     }
 

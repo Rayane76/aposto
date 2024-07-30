@@ -36,6 +36,6 @@ export default async function ArticlePage({ params }){
 
     
     return(
-        <EditArticlePage article={article} categorieName={params.name} categorieId={params.id} />
+        <EditArticlePage article={article} categorieName={params.name} categorieId={params.id} idArticle={params.articleId} />
     )
 }
