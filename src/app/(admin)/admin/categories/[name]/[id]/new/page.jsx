@@ -54,7 +54,7 @@ export default function NewArticle({ params }){
        if(sizeType === "xsValues"){
          smlArr.map((size)=>{
             colorSizes.push({
-                name: size,
+               name: size,
                isOutSize: false
             })
          })
@@ -198,7 +198,7 @@ export default function NewArticle({ params }){
         <label className='me-2'>Add color docs name : </label>
         <input className='me-2' onChange={(e)=>setTypedColor((prev)=>({...prev,secName:e.target.value}))} value={typedColor.secName} type='text'></input>
         </div>
-        <button className='btn btn-success' onClick={()=>{if(typedColor.name != "" && typedColor.secName != ""){setColors((prev)=>([...prev,typedColor]));setTypedColor({name:"",secName:""})}}}>+</button>
+        <button type="button" className='btn btn-success' onClick={()=>{if(typedColor.name != "" && typedColor.secName != ""){setColors((prev)=>([...prev,typedColor]));setTypedColor({name:"",secName:""})}}}>+</button>
         </div>
         <br></br>
        <br></br>

@@ -8,7 +8,7 @@ import Link from '@mui/material/Link';
 import { MdDelete } from "react-icons/md";
 import Checkbox from '@mui/material/Checkbox';
 import _ from 'lodash';
-import { updateArticle } from './action';
+import { deleteArticle, updateArticle } from './action';
 
 
 
@@ -235,6 +235,14 @@ export default function EditArticlePage({ article , categorieName , categorieId 
     }
 
 
+    const handleDeleteArticle = async () => {
+
+        await deleteArticle(idArticle);
+
+        router.push("/admin/categories/" + categorieName + "/" + categorieId);
+
+    }
+
 
     return(
         <div style={{width:"100%", padding: "40px",marginTop:"20px" }}>
@@ -252,7 +260,7 @@ export default function EditArticlePage({ article , categorieName , categorieId 
        </Link>
        <Typography color="text.primary">{article.name}</Typography>
      </Breadcrumbs>
-     <button className="btn btn-light"><MdDelete style={{color:"red", height:"30px",width:"30px"}} /></button>
+     <button className="btn btn-light" onClick={()=>handleDeleteArticle()}><MdDelete style={{color:"red", height:"30px",width:"30px"}} /></button>
         </div>
         <label className="mb-2">Name : </label>
         <br></br>

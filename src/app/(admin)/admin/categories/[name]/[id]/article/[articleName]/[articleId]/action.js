@@ -2,6 +2,8 @@
 import { PrismaClient } from '@prisma/client'
 
 
+
+
 export async function updateArticle(editArtcl,createClr,deleteClr,modifyClr,modifySz) {
     const prisma = new PrismaClient()
 
@@ -26,18 +28,11 @@ export async function updateArticle(editArtcl,createClr,deleteClr,modifyClr,modi
 
     if(deleteClr !== undefined){
         for (let index = 0; index < deleteClr.length; index++) {
-
-            await prisma.size.deleteMany({
-                where: {
-                    colorId: deleteClr[index]
-                }
-            });
             await prisma.color.delete({
                 where: {
                     id: deleteClr[index]
                 }
             })
-    
         }
     }
 
@@ -70,4 +65,24 @@ export async function updateArticle(editArtcl,createClr,deleteClr,modifyClr,modi
 
 
      await prisma.$disconnect();
+}
+
+export async function deleteArticle(id){
+  
+    const prisma = new PrismaClient()
+
+    await prisma.color.deleteMany({
+        where: {
+            articleId: id
+        }
+    })
+
+    await prisma.article.delete({
+        where: {
+            id: id
+        }
+    })
+
+    await prisma.$disconnect();
+
 }

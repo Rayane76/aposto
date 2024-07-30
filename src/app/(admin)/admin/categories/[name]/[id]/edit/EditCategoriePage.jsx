@@ -11,7 +11,7 @@ import { MdDelete } from "react-icons/md";
 import "../../../../../../styles/admin/gender.css"
 import Checkbox from '@mui/material/Checkbox';
 import _ from 'lodash';
-import { editCategorie } from "./action";
+import { deleteCategorie, editCategorie } from "./action";
 
 
 
@@ -51,6 +51,11 @@ export default function EditCategoriePage({ catImage , catHide , name , id }){
 
     }
 
+    const handleDeleteCategorie = async () => {
+       await deleteCategorie(id);
+       router.push("/admin/categories");
+    }
+
     
 
     return(
@@ -68,7 +73,7 @@ export default function EditCategoriePage({ catImage , catHide , name , id }){
        </Link>
        <Typography color="text.primary">Edit</Typography>
      </Breadcrumbs>
-     <button className="btn btn-light"><MdDelete style={{color:"red", height:"30px",width:"30px"}} /></button>
+     <button className="btn btn-light" onClick={()=>handleDeleteCategorie()}><MdDelete style={{color:"red", height:"30px",width:"30px"}} /></button>
      </div>
         <form style={{marginTop:"40px",minHeight:"80vh",height:"auto",position:"relative"}} onSubmit={(e)=>{handleSubmit(e)}}>
         <label style={{marginBottom:"15px"}}>Categorie Name : </label>

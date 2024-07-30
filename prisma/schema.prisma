@@ -11,6 +11,7 @@ generator client {
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Categorie {
@@ -30,7 +31,7 @@ model Article {
   images       String[]
   price        Float
   colors       Color[]
-  categorie    Categorie @relation(fields: [categorieId], references: [id])
+  categorie    Categorie @relation(fields: [categorieId], references: [id], onDelete: Cascade)
   categorieId  String    @db.ObjectId
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
@@ -42,7 +43,7 @@ model Color {
   isOutColor Boolean
   secName    String
   sizes      Size[] 
-  article    Article @relation(fields: [articleId], references: [id])
+  article    Article @relation(fields: [articleId], references: [id] , onDelete: Cascade)
   articleId  String  @db.ObjectId
 }
 
@@ -50,7 +51,7 @@ model Size {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   isOutSize Boolean
-  color     Color   @relation(fields: [colorId], references: [id])
+  color     Color   @relation(fields: [colorId], references: [id] , onDelete: Cascade)
   colorId   String  @db.ObjectId
 }
 
@@ -58,4 +59,5 @@ model Wilaya {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   name  String
   price Float
+  hide Boolean
 }
