@@ -9,7 +9,7 @@ const prisma = new PrismaClient()
 
 
 
-async function getCategorie(id: string) {
+async function getCategorieArticles(id: string) {
     const res = await prisma.article.findMany({
         where: {
           categorieId: id
@@ -31,7 +31,7 @@ async function getCategorie(id: string) {
 
 export default async function Categorie({ params }: { params: { name: string , id: string } }){
 
-    const articles = await getCategorie(params.id)
+    const articles = await getCategorieArticles(params.id)
     .finally(async ()=> {
         await prisma.$disconnect();
     })
