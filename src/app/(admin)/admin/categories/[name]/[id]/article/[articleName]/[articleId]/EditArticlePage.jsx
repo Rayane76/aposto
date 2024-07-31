@@ -9,6 +9,9 @@ import { MdDelete } from "react-icons/md";
 import Checkbox from '@mui/material/Checkbox';
 import _ from 'lodash';
 import { deleteArticle, updateArticle } from './action';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Spinner from 'react-bootstrap/Spinner';
 
 
 
@@ -17,6 +20,14 @@ import { deleteArticle, updateArticle } from './action';
 export default function EditArticlePage({ article , categorieName , categorieId , idArticle }){
 
     const router = useRouter();
+
+    const [clickedBtn,setClickedBtn] = useState("");
+    const [indexOfImageToDelete,setIndexOfImageToDelete] = useState(null);
+    const [indexOfColorToDelete,setIndexOfColorToDelete] = useState(null);
+
+
+    const [modalShow, setModalShow] = useState(false);
+    const [modalShowSpinner,setModalShowSpinner] = useState(false);
 
     const [originalArticle,setOriginalArticle] = useState({
         images: article.images,
@@ -49,6 +60,9 @@ export default function EditArticlePage({ article , categorieName , categorieId 
          ...prevArticle,
          images: newImages,
        }));
+       
+       setModalShow(false);
+       setIndexOfImageToDelete(null);
     }
 
     const handleAddImage = (e)=>{
@@ -143,6 +157,8 @@ export default function EditArticlePage({ article , categorieName , categorieId 
         //add deleted color id to a deletedColors array
         setDeletedColors((prev)=>([...prev,modifiedArticle.colors[index].id]));
         setModifiedArticle((prev)=>({...prev,colors:prev.colors.filter((_,i)=> i !== index)}));
+        setModalShow(false);
+        setIndexOfColorToDelete(null);
     }
 
 
@@ -164,6 +180,11 @@ export default function EditArticlePage({ article , categorieName , categorieId 
     }
 
     const handleSubmit = async () => {
+
+        if(modifiedArticle.name !== "" && modifiedArticle.price != "" && modifiedArticle.images.length > 0 && modifiedArticle.colors.length > 0){
+
+        setModalShow(false);
+        setModalShowSpinner(true);
 
         let editArtcl = undefined;
         let createClr = undefined;
@@ -234,8 +255,14 @@ export default function EditArticlePage({ article , categorieName , categorieId 
 
     }
 
+    }
+
 
     const handleDeleteArticle = async () => {
+        
+        setModalShow(false);
+
+        setModalShowSpinner(true);
 
         await deleteArticle(idArticle);
 
@@ -260,7 +287,7 @@ export default function EditArticlePage({ article , categorieName , categorieId 
        </Link>
        <Typography color="text.primary">{article.name}</Typography>
      </Breadcrumbs>
-     <button className="btn btn-light" onClick={()=>handleDeleteArticle()}><MdDelete style={{color:"red", height:"30px",width:"30px"}} /></button>
+     <button className="btn btn-light" onClick={()=>{setClickedBtn("delete");setModalShow(true)}}><MdDelete style={{color:"red", height:"30px",width:"30px"}} /></button>
         </div>
         <label className="mb-2">Name : </label>
         <br></br>
@@ -283,7 +310,7 @@ export default function EditArticlePage({ article , categorieName , categorieId 
            return(
                <div key={j} style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column",flexWrap:"wrap"}}>
                <img src={image} style={{width:"auto",maxWidth:"150px",height:"100px"}}></img>
-               <MdDelete style={{marginTop:"10px",height:"20px",width:"20px",cursor:"pointer"}} onClick={()=>handleDeleteImage(j)} />
+               <MdDelete style={{marginTop:"10px",height:"20px",width:"20px",cursor:"pointer"}} onClick={()=>{setIndexOfImageToDelete(j);setClickedBtn("image");setModalShow(true)}} />
                </div>
            )
         })} 
@@ -300,7 +327,7 @@ export default function EditArticlePage({ article , categorieName , categorieId 
           <label style={{width:"100px",paddingTop:"8px"}}>- {color.name}</label>
           <label style={{width:"100px",paddingTop:"8px"}}>{color.secName}</label>
           <Checkbox type='checkbox' checked={color.isOutColor} onChange={(e)=>handleModifyColor(index,e.target.checked)} />
-          <MdDelete style={{marginTop:"10px",marginLeft:"10px",height:"20px",width:"20px",cursor:"pointer"}} onClick={()=>handleDeleteColor(index)} />
+          <MdDelete style={{marginTop:"10px",marginLeft:"10px",height:"20px",width:"20px",cursor:"pointer"}} onClick={()=>{setIndexOfColorToDelete(index);setClickedBtn("color");setModalShow(true)}} />
         </div>
         <label className='mb-4'>Sizes : </label>
         <div>
@@ -338,9 +365,76 @@ export default function EditArticlePage({ article , categorieName , categorieId 
 
 
        <div style={{display:"flex",width:"100%",justifyContent:"center",marginTop:"50px"}}>
-       <button onClick={()=>handleSubmit()} className="btn btn-primary">Save Changes</button>
+       <button onClick={()=>{setClickedBtn("save");setModalShow(true)}} className="btn btn-primary">Save Changes</button>
        </div>
         </div>
+
+
+
+
+
+        <Modal
+      show={modalShow}
+      onHide={() => setModalShow(false)} 
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {clickedBtn === "delete" ?
+        <h4>Delete Article ?</h4>
+        :
+         clickedBtn === "image" ?
+         <h4>Delete Image ?</h4>
+         : 
+         clickedBtn === "color" ?
+         <h4>Delete Color ?</h4>
+         :
+         clickedBtn === "save" ?
+           modifiedArticle.name === "" ?
+           <h4>Please add a name</h4>
+           :
+           modifiedArticle.price === "" ?
+           <h4>Please add a price</h4>
+           :
+           modifiedArticle.images.length === 0 ?
+           <h4>Please add at least one image</h4>
+           :
+           modifiedArticle.colors.length === 0 ?
+           <h4>Please add at least one image</h4>
+           :
+           <h4>Save Changes ?</h4>
+         :
+         ""
+        }
+      </Modal.Body>
+      <Modal.Footer>
+        {clickedBtn === "save" && modifiedArticle.name !== "" && modifiedArticle.price != "" && modifiedArticle.images.length > 0 && modifiedArticle.colors.length > 0 && <Button onClick={()=>handleSubmit()}>Save</Button>}
+        {clickedBtn === "color" && <Button variant='danger' onClick={()=>handleDeleteColor(indexOfColorToDelete)}>Delete</Button>}
+        {clickedBtn === "image" && <Button variant='danger' onClick={()=>handleDeleteImage(indexOfImageToDelete)}>Delete</Button>}
+        {clickedBtn === "delete" && <Button variant='danger' onClick={()=>handleDeleteArticle()}>Delete</Button>}
+        <Button variant="secondary" onClick={()=>setModalShow(false)}>Close</Button>
+      </Modal.Footer>
+    </Modal>
+
+
+    <Modal
+      show={modalShowSpinner}
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+      size="sm"
+    >
+      <Modal.Body style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+      <Spinner animation="border" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>
+      </Modal.Body>
+
+    </Modal>
        </div>
     )
 }

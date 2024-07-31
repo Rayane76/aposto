@@ -12,12 +12,18 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { createArticle } from "./action";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Spinner from 'react-bootstrap/Spinner';
 
 
 
 export default function NewArticle({ params }){
 
     const router = useRouter();
+
+    const [modalShow, setModalShow] = useState(false);
+    const [modalShowSpinner,setModalShowSpinner] = useState(false);
 
 
     const [newArticle,setNewArticle] = useState({
@@ -45,8 +51,9 @@ export default function NewArticle({ params }){
     secName:""
    });
 
-   const handleSubmitArticle = async (e) => {
-    e.preventDefault();
+   const handleSubmitArticle = async () => {
+    setModalShow(false);
+    setModalShowSpinner(true);
     if(colors.length > 0 && newArticle.images.length > 0 && (sizeType === "xsValues" || (sizeType === "manually" && sizes.length > 0))){
 
         let colorSizes = [];
@@ -97,7 +104,7 @@ export default function NewArticle({ params }){
 
         await createArticle(article);
 
-        router.back();
+        router.push("/admin/categories/" + params.name + "/" + params.id);
 
 
     }
@@ -124,7 +131,7 @@ export default function NewArticle({ params }){
        <Typography color="text.primary">New Article</Typography>
      </Breadcrumbs>
      </div>
-       <form style={{minHeight:"150vh",height:"auto",position:"relative"}} onSubmit={(e)=>handleSubmitArticle(e)}>
+       <form style={{minHeight:"150vh",height:"auto",position:"relative"}} onSubmit={(e)=>{e.preventDefault();setModalShow(true)}}>
        <label style={{marginBottom:"15px"}}>Article name : </label>
        <br></br>
        <input style={{width:"100%",height:"40px"}} onChange={(e)=>setNewArticle((prev)=>({...prev,[e.target.name]:e.target.value}))} type="text" name="name" required></input>
@@ -168,7 +175,7 @@ export default function NewArticle({ params }){
         <div className='d-flex align-items-center mb-4'>
         <label className='me-2'>Add size name : </label>
         <input className='me-2' onChange={(e)=>setTypedSize(e.target.value)} value={typedSize} type='text'></input>
-        <button className='btn btn-success' onClick={()=>{if(typedSize != ""){setSizes((prev)=>([...prev,typedSize]));setTypedSize("")}}}>+</button>
+        <button type="button" className='btn btn-success' onClick={()=>{if(typedSize != ""){setSizes((prev)=>([...prev,typedSize]));setTypedSize("")}}}>+</button>
         </div>
         {sizes.length === 0 ? "" 
         : (
@@ -219,6 +226,51 @@ export default function NewArticle({ params }){
          <button type="submit" className="btn btn-primary">Submit</button>   
          </div>
        </form>
+
+
+
+
+       <Modal
+      show={modalShow}
+      onHide={() => setModalShow(false)} 
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {newArticle.images.length === 0 ? <h4>Please add at least one image</h4>
+        :
+        colors.length === 0 ? <h4>Please add at least one color</h4>
+        :
+        sizeType === "manually" && sizes.length === 0 ? <h4>Please add at least one size</h4>
+        :
+        <h4>Create Article ?</h4>
+        }
+      </Modal.Body>
+      <Modal.Footer>
+       {colors.length > 0 && newArticle.images.length > 0 && (sizeType === "xsValues" || (sizeType === "manually" && sizes.length > 0)) && <Button onClick={()=>handleSubmitArticle()}>Submit</Button>}
+        <Button variant="secondary" onClick={()=>setModalShow(false)}>Close</Button>
+      </Modal.Footer>
+    </Modal>
+
+
+    <Modal
+      show={modalShowSpinner}
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+      size="sm"
+    >
+      <Modal.Body style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+      <Spinner animation="border" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>
+      </Modal.Body>
+
+    </Modal>
      </div>
     )
 }

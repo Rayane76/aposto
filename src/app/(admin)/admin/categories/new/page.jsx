@@ -5,9 +5,10 @@ import { useRouter } from "next/navigation";
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
-import { Button } from "react-bootstrap";
 import { createCategorie } from "./action";
-
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Spinner from 'react-bootstrap/Spinner';
 
 
 export default function NewCategorie(){
@@ -23,10 +24,11 @@ export default function NewCategorie(){
         setCategorieNew((prev)=>({...prev,[e.target.name]:e.target.value}));
     }
 
-    const handleSubmitCategorie = async (e)=> {
-        e.preventDefault();
+    const handleSubmitCategorie = async ()=> {
+        setModalShow(false);
+        setModalShowSpinner(true);
         await createCategorie(categorieNew);
-        router.back();
+        router.push("/admin/categories");
     }
 
     const handleAddImage = (e)=>{
@@ -34,6 +36,10 @@ export default function NewCategorie(){
             setCategorieNew((prev)=>({...prev,image:e.info.secure_url}));
         }
     }
+
+    const [modalShow, setModalShow] = useState(false);
+    const [modalShowSpinner,setModalShowSpinner] = useState(false);
+
 
 
 
@@ -46,7 +52,7 @@ export default function NewCategorie(){
         <Typography color="text.primary">New</Typography>
       </Breadcrumbs>
         
-        <form style={{marginTop:"30px",position:"relative" , height:"80vh"}} onSubmit={(e)=>handleSubmitCategorie(e)}>
+        <form style={{marginTop:"30px",position:"relative" , height:"80vh"}} onSubmit={(e)=>{e.preventDefault();setModalShow(true)}}>
         <label style={{marginBottom:"40px"}}>Enter New Categorie : </label>
         <br></br>
         <label style={{marginBottom:"10px"}}>Name : </label>
@@ -61,6 +67,48 @@ export default function NewCategorie(){
         <Button variant="primary" type="submit">Submit</Button>
         </div>
         </form>
+
+
+
+
+
+        <Modal
+      show={modalShow}
+      onHide={() => setModalShow(false)} 
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {categorieNew.image === "" ? <h4>Please add an image</h4>
+        :
+        <h4>Create Categorie ?</h4>
+        }
+      </Modal.Body>
+      <Modal.Footer>
+        {categorieNew.image !== "" && <Button onClick={()=>handleSubmitCategorie()}>Submit</Button>}
+        <Button variant="secondary" onClick={()=>setModalShow(false)}>Close</Button>
+      </Modal.Footer>
+    </Modal>
+
+
+    <Modal
+      show={modalShowSpinner}
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+      size="sm"
+    >
+      <Modal.Body style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+      <Spinner animation="border" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>
+      </Modal.Body>
+
+    </Modal>
         </div>
     )
 }

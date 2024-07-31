@@ -6,12 +6,14 @@ import { CldUploadButton } from 'next-cloudinary';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
-import Button from '@mui/material/Button';
 import { MdDelete } from "react-icons/md";
 import "../../../../../../styles/admin/gender.css"
 import Checkbox from '@mui/material/Checkbox';
 import _ from 'lodash';
 import { deleteCategorie, editCategorie } from "./action";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Spinner from 'react-bootstrap/Spinner';
 
 
 
@@ -51,11 +53,17 @@ export default function EditCategoriePage({ catImage , catHide , name , id }){
 
     }
 
+    const [modalShow, setModalShow] = useState(false);
+    const [modalShowSpinner,setModalShowSpinner] = useState(false);
+
     const handleDeleteCategorie = async () => {
+       setModalShow(false);
+       setModalShowSpinner(true);
        await deleteCategorie(id);
        router.push("/admin/categories");
     }
 
+    
     
 
     return(
@@ -73,7 +81,7 @@ export default function EditCategoriePage({ catImage , catHide , name , id }){
        </Link>
        <Typography color="text.primary">Edit</Typography>
      </Breadcrumbs>
-     <button className="btn btn-light" onClick={()=>handleDeleteCategorie()}><MdDelete style={{color:"red", height:"30px",width:"30px"}} /></button>
+     <button className="btn btn-light" onClick={()=>{setModalShow(true)}}><MdDelete style={{color:"red", height:"30px",width:"30px"}} /></button>
      </div>
         <form style={{marginTop:"40px",minHeight:"80vh",height:"auto",position:"relative"}} onSubmit={(e)=>{handleSubmit(e)}}>
         <label style={{marginBottom:"15px"}}>Categorie Name : </label>
@@ -92,10 +100,47 @@ export default function EditCategoriePage({ catImage , catHide , name , id }){
         <CldUploadButton className="btn btn-secondary" onSuccess={(e)=>handleAddImage(e)} uploadPreset="aposto" />   
         <br></br>
         <div style={{position:"absolute",bottom:"10px",display:"flex",justifyContent:"center",width:"100%"}}>
-        <Button variant="contained" id="submitNewBtn" type="submit">Update</Button>
+        <Button id="submitNewBtn" type="submit">Update</Button>
         </div>
         </form>
-        {/* <button onClick={(e)=>handleDelete(e)}>Delete Categorie</button> */}
+
+
+
+
+        <Modal
+      show={modalShow}
+      onHide={() => setModalShow(false)} 
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <h4>Delete Categorie ?</h4>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="danger" onClick={()=>handleDeleteCategorie()}>Delete</Button>
+        <Button variant="secondary" onClick={()=>setModalShow(false)}>Close</Button>
+      </Modal.Footer>
+    </Modal>
+
+
+    <Modal
+      show={modalShowSpinner}
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+      size="sm"
+    >
+      <Modal.Body style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+      <Spinner animation="border" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>
+      </Modal.Body>
+
+    </Modal>
        </div>
     )
 }
