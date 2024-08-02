@@ -1,8 +1,6 @@
 
 .stickyNav{
-    position: sticky;
     width: 100%;
-    top: 0;
     z-index: 100;
     background-color: #F1EADA;
 }

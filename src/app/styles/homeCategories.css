@@ -1,0 +1,71 @@
+.cats{
+    height: 100vh;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.categorieDiv{
+    width: 50%;
+    height: auto;
+    max-height: 500px;
+    position: relative;
+}
+
+.catImage{
+    width: 100%;
+    aspect-ratio: 1.44;
+}
+
+.title{
+   position: absolute;
+   bottom: 12%;
+   left: 6%;
+   color: white;
+   font-size: 24px;
+}
+
+.shop{
+    position: absolute;
+    bottom: 3%;
+    left: 6%;
+    padding: 5px 15px;
+    border-radius: 40px;
+    background-color: white;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.shop:hover{
+    background-color: gray;
+}
+
+@media screen and (max-width: 1000px) {
+    .catImage{
+        aspect-ratio: 1.2;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .categorieDiv{
+        max-height: unset;
+    }
+
+    .catImage{
+        aspect-ratio: 0.8;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .categorieDiv{
+        width: 100%;
+        max-height: unset;
+    }
+
+    .catImage{
+        aspect-ratio: 0.8;
+        object-fit: fill;
+    }
+}

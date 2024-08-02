@@ -1,0 +1,23 @@
+.articlesDiv{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 100vh;
+}
+
+.article{
+    height: 25%;
+    width: 25%;
+}
+
+.articleImg{
+    height: 100%;
+    width: 100%;
+}
+
+.miniNav{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
