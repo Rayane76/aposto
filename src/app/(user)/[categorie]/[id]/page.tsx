@@ -84,7 +84,6 @@ export default async function OneCategorie({ params }: { params : { categorie: s
 
     return(
         <div>
-            <Navbar />
             <OneCatPage articles={articles} clrs={filteredColors} />
         </div>
     )

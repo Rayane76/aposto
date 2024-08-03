@@ -42,7 +42,7 @@ export default async function Home() {
 
   return (
     <>
-      <Hero categories={categories} />
+      <Hero />
       <Categ categories={categories} />
     </>
   );

@@ -1,21 +1,20 @@
 .cats{
     height: 100vh;
     display: flex;
-    justify-content: start;
+    justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
 }
 
 .categorieDiv{
-    width: 50%;
+    width: 30%;
     height: auto;
-    max-height: 500px;
     position: relative;
+    margin-bottom: 30px;
 }
 
 .catImage{
     width: 100%;
-    aspect-ratio: 1.44;
 }
 
 .title{
@@ -28,7 +27,7 @@
 
 .shop{
     position: absolute;
-    bottom: 3%;
+    bottom: 7%;
     left: 6%;
     padding: 5px 15px;
     border-radius: 40px;
@@ -42,30 +41,23 @@
     background-color: gray;
 }
 
-@media screen and (max-width: 1000px) {
-    .catImage{
-        aspect-ratio: 1.2;
-    }
-}
-
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 998px) {
     .categorieDiv{
-        max-height: unset;
+        width: 45%;
     }
 
-    .catImage{
-        aspect-ratio: 0.8;
+    .cats{
+        margin-top: 50px;
     }
 }
 
 @media screen and (max-width: 600px) {
     .categorieDiv{
-        width: 100%;
+        width: 90%;
         max-height: unset;
     }
 
     .catImage{
-        aspect-ratio: 0.8;
         object-fit: fill;
     }
 }

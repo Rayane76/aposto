@@ -12,7 +12,17 @@ import { MdDelete } from "react-icons/md";
 import { useRouter } from "next/navigation";
 
 
-export default function Navbar() {
+interface Category {
+  id: string;
+  name: string;
+}
+
+interface Props {
+  categories: Category[]
+}
+
+
+export default function Navbar({ categories }: Props) {
     
     
   const router = useRouter();
@@ -94,13 +104,19 @@ export default function Navbar() {
           </Container>
         </div>
       </header>
-      <div className="navbar">
+      <Container className="container">
+      <Row className="navbar">
         <ul className="navbar__content">
-          <li className="navbar__item">
-            <a className="navbar__link h5" href="/newArrivals">New Arrivals</a>
+          {categories.map((categorie,index)=>{
+            return(
+              <li key={index} className="navbar__item" style={{width:"150px",textAlign:"center"}}>
+            <a className="navbar__link h5" href={"/" + categorie.name + "/" + categorie.id}>{categorie.name.toUpperCase()}</a>
           </li>
+            )
+          })}
         </ul>
-      </div>
+      </Row>
+      </Container>
 
 
 
@@ -169,26 +185,15 @@ export default function Navbar() {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <ul className="menu">
-            <li className="menu__item">
-            <a className="menu__link with-arrow" href="/newArrivals">
-                            New Arrivals
-                        </a>
-            </li>
-            <li>
-            <a className="menu__link with-arrow" href="/Men">
-                            Men
-                        </a>
-            </li>
-            <li>
-            <a className="menu__link with-arrow" href="/Women">
-                            Women
-                        </a>
-            </li>
-            <li>
-            <a className="menu__link with-arrow" href="/Kids">
-                            Kids
-                        </a>
-            </li>
+            {categories.map((categorie,index)=>{
+              return(
+                <li key={index} className="menu__item">
+                <a className="menu__link with-arrow" href={"/" + categorie.name + "/" + categorie.id}>
+                                {categorie.name}
+                            </a>
+                </li>
+              )
+            })}
           </ul>
         </Offcanvas.Body>
         </Offcanvas>

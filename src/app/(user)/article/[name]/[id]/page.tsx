@@ -74,7 +74,6 @@ export default async function Article({ params }: { params: { name: string , id:
 
     return(
         <div>
-           <Navbar />
            <OneArticlePage article={article} />
         </div>
     )

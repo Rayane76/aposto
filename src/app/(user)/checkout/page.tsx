@@ -35,7 +35,6 @@ export default async function Checkout({ searchParams }: { searchParams : { sour
 
     return(
         <div>
-           <Navbar />
            <CheckPage source={searchParams.source} wilayas={wilayas} />
         </div>
     )
