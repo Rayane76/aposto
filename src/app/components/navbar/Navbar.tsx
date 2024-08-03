@@ -1,16 +1,21 @@
 'use client'
 import "../../styles/navbar.css"
+import "../../styles/check.css"
 import { Container } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { HiMenuAlt2 } from "react-icons/hi";
 import { PiHandbag } from "react-icons/pi";
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
+import { MdDelete } from "react-icons/md";
+import { useRouter } from "next/navigation";
+
 
 export default function Navbar() {
     
     
+  const router = useRouter();
 
   const [showCart, setShowCart] = useState(false);
 
@@ -22,6 +27,44 @@ export default function Navbar() {
 
   const handleCloseMenu = () => setShowMenu(false);
   const handleShowMenu = () => setShowMenu(true);
+
+  const [articlesCart, setArticlesCart] = useState<any>(null);
+
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem('cart') || '[]') as any[];
+    setArticlesCart(storedCart);
+  }, [showCart]);
+
+  const handleDeleteFromCart = (index: number)=> {
+    let currentCart = JSON.parse(localStorage.getItem('cart') || '[]') as any[];
+
+    // Remove the article at the specified index
+    currentCart.splice(index, 1);
+
+    // Save the updated cart back to localStorage
+    localStorage.setItem('cart', JSON.stringify(currentCart));
+
+    const storedCart = JSON.parse(localStorage.getItem('cart') || '[]') as any[];
+
+
+    setArticlesCart(storedCart);
+
+  }
+
+  const handleClickBuyNow = () => {
+    let prc = 0;
+    articlesCart.map((article:any)=>{
+     prc = prc + article.price;
+    })
+
+    localStorage.setItem("price",JSON.stringify(prc));
+    
+    setShowCart(false);
+
+    router.push(`/checkout?source=${"cart"}`);
+ }
+
+
 
 
   return (
@@ -66,7 +109,54 @@ export default function Navbar() {
           <Offcanvas.Title><PiHandbag className="icn" /> My Cart</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-
+        <div className="summary__body">
+                         <div className="summary__products">
+                           {articlesCart === null ? "" : 
+                           articlesCart.length === 0 ? "Cart is empty" :
+                            <div>
+                            {articlesCart.map((article:any,index:number)=>{
+                                return(
+                                    <div key={index} className="product">
+                               <a className="product__area -image" href={"/article/" + article.name + "/" + article.id}>
+                                <img className="articleImg" src={article.image} alt={article.name}></img>
+                               </a>
+                               <div className="product__area -content">
+                                   <h4 className="product__title">{article.name}</h4>
+                                   <div className="product__attributes">
+                                     <div style={{display:"flex",flexDirection:"row"}}>
+                                      <span className="product__attrKey">
+                                      Size:
+                                      </span>
+                                      <span className="product__attrValue">
+                                      {article.size}
+                                      </span>
+                                      </div>
+                                      <div style={{display:"flex",flexDirection:"row"}}>
+                                      <span className="product__attrKey">
+                                      Color:
+                                      </span>
+                                      <span className="product__attrValue">
+                                      {article.color}
+                                      </span>
+                                      </div>
+                                   </div>
+                               </div>
+                               <div  className="product__area -prices">
+                               <span className="product__price">
+                               {article.price} DA
+                               </span>
+                               <MdDelete className="icn mt-4" onClick={()=>handleDeleteFromCart(index)} />
+                               </div>
+                            </div>
+                                )
+                            })}
+                            <div style={{width:"100%",display:"flex",justifyContent:"center",alignItems:"center"}}>
+                           <button onClick={()=>handleClickBuyNow()} className="btn btn-dark">Buy now</button>
+                            </div>
+                            </div>
+                           }
+                         </div>
+                      </div>
         </Offcanvas.Body>
       </Offcanvas>
 

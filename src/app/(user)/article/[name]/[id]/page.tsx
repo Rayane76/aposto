@@ -1,5 +1,7 @@
 import Navbar from "@/app/components/navbar/Navbar"
 import { PrismaClient } from '@prisma/client'
+import "../../../../styles/oneArticle.css"
+import OneArticlePage from "@/app/components/oneArticlePage/OneArticlePage"
 
 
 const prisma = new PrismaClient()
@@ -72,7 +74,8 @@ export default async function Article({ params }: { params: { name: string , id:
 
     return(
         <div>
-
+           <Navbar />
+           <OneArticlePage article={article} />
         </div>
     )
 }
