@@ -1,6 +1,5 @@
 import Navbar from "@/app/components/navbar/Navbar";
 import { PrismaClient } from '@prisma/client'
-import "../../../styles/oneCategorie.css"
 import OneCatPage from "@/app/components/oneCatPage/OneCatPage";
 
 
@@ -84,7 +83,7 @@ export default async function OneCategorie({ params }: { params : { categorie: s
 
     return(
         <div>
-            <OneCatPage articles={articles} clrs={filteredColors} />
+            <OneCatPage articles={articles} clrs={filteredColors} name={params.categorie} />
         </div>
     )
 }

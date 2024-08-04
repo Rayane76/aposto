@@ -7,7 +7,7 @@
 .product-images.-mobile {
     display: none;
     padding: 0;
-    height: calc(65vh - 30px);
+    height: auto;
     overflow: hidden;
     position: relative;
 }
@@ -126,11 +126,8 @@
 .product__name {
     color: #333;
     margin: 0 0 0.75rem;
-}
-
-h2, .h2 {
-    font-size: 1.25rem;
-    line-height: 1.625rem;
+    font-weight: bolder;
+    font-size: 22px;
 }
 
 .product__prices{
@@ -159,8 +156,9 @@ h2, .h2 {
 .product__price {
     display: block;
     color: #333;
-    font-size: 1.125rem;
+    font-size: 20px;
     line-height: 20px;
+    font-weight: bolder;
 }
 
 
@@ -202,6 +200,7 @@ h2, .h2 {
     margin-left: .625rem;
     margin-bottom: .625rem;
     font-size: 0.875rem;
+    font-weight: bolder;
 }
 
 .product__sizes {
@@ -328,6 +327,9 @@ h2, .h2 {
 }
 
 @media screen and (min-width: 768px) {
+    .all{
+        margin-top: 20px;
+    }
     .product__buttons.-shopTheLook {
         margin-bottom: .625rem;
     }
@@ -341,7 +343,7 @@ h2, .h2 {
     }
     .product__shopTheLook {
         margin: 0 0 30px;
-        padding-right: 70px;
+        padding-right: 3%;
     }
 }
 
@@ -429,6 +431,11 @@ h2, .h2 {
     }
     .product__buttons {
         position: fixed;
+        display: flex;
+        justify-content: space-between;
+        padding-left: 5px;
+        padding-right: 5px;
+        align-items: center;
         z-index: 4;
         bottom: 0;
         left: 0;
@@ -443,6 +450,8 @@ h2, .h2 {
     }
     .product__button.-addToCart {
         flex: 3;
+        width: 50%;
+        margin-right: 20px;
     }
     .product__size{
         width: 100%;

@@ -1,6 +1,10 @@
 'use client'
 import { useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
+import "../../styles/oneCategorie.css"
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
 
 
 interface Article {
@@ -23,12 +27,13 @@ interface Article {
   }
 
   interface Props {
+    name: string
     articles: Article[]
     clrs: Clrs[]
   }
 
 
-export default function OneCatPage({ articles , clrs }: Props){
+export default function OneCatPage({ articles , clrs , name }: Props){
 
 
     const [selectedColors, setSelectedColors] = useState<string[]>([]);
@@ -50,6 +55,14 @@ export default function OneCatPage({ articles , clrs }: Props){
     return(
         <div>
             <div className="miniNav">
+            <Breadcrumbs separator="›" aria-label="breadcrumb">
+        <Link underline="hover" color="inherit" href="/">
+          Home
+        </Link>
+        <Typography color="text.primary">{name}</Typography>
+      </Breadcrumbs>
+
+
             <Dropdown>
     <Dropdown.Toggle style={{all:"unset",cursor:"pointer"}} id="dropdown-custom-components">
       Filter by color
@@ -76,10 +89,20 @@ export default function OneCatPage({ articles , clrs }: Props){
                 if(selectedColors.length === 0 || selectedColors.some(color => article.colors.some(obj => obj.secName === color))){
                 return(
                     <a className="article" key={index} href={"/article/" + article.name + "/" + article.id}>
-                      <img src={article.images[0]} alt="article" className="articleImg"></img>
-                      <h1>{article.name}</h1>
-                      <h2>{article.colors.length + " "} Colors</h2>
-                      <h2>{article.price + " "} Da</h2>
+                      <img src={article.images[0]} alt="article" className="imgArticle"></img>
+                      <h1 className='title'>{article.name.toUpperCase()}</h1>
+                      <h2 className='details' style={{marginBottom:"5px"}}>{name}</h2>
+                      <div style={{display:"flex",alignItems:"center",marginBottom:"10px"}}>
+                      <h2 className='details'>{article.colors.length + " "} Colors</h2>
+                      <div className="products__colorOptions -twoColor">
+                        {article.colors.map((color,index)=>{
+                          return(
+                            <span key={index} className="products__itemColor" style={{backgroundColor: color.secName}}></span>
+                          )
+                        })}
+                      </div>
+                      </div>
+                      <h2 className='price'>{article.price + " "} Da</h2>
                     </a>
                 )
                 }

@@ -28,6 +28,14 @@
      .layout__sidebar {
         padding: 20px;
     }
+    .submitBTN{
+        position: fixed;
+        bottom: 40px;
+        height: 40px;
+        width: 80%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
 
 @media (min-width: 1366px) {

@@ -67,13 +67,13 @@ export default function OneArticlePage({ article }: Props){
 
     }
 
-    const [selectedSize,setSelectedSize] = useState<string>("Select Size");
+    const [selectedSize,setSelectedSize] = useState<string>("Size");
     const [error,setError] = useState<string>("");
 
     const handleSize = (e: React.MouseEvent<HTMLElement>,sizeSelected: string) => {
 
         if(selectedSize !== sizeSelected){
-            if(selectedSize !== "Select Size"){
+            if(selectedSize !== "Size"){
             const checked = document.getElementsByClassName("checked");
             checked[0].classList.remove("checked");
             }
@@ -93,7 +93,7 @@ export default function OneArticlePage({ article }: Props){
       }
 
       const handleAddCart = () => {
-        if(selectedSize === "Select Size"){
+        if(selectedSize === "Size"){
             const sizesOpen = document.getElementsByClassName("product__sizes");
             sizesOpen[0].classList.toggle("-mobileShow");
             setError("Choose your size !");
@@ -131,7 +131,7 @@ export default function OneArticlePage({ article }: Props){
  }
 
       const handleBuy = () => {
-        if(selectedSize === "Select Size"){
+        if(selectedSize === "Size"){
             const sizesOpen = document.getElementsByClassName("product__sizes");
             sizesOpen[0].classList.toggle("-mobileShow");
             setError("Choose your size !");
@@ -153,7 +153,7 @@ export default function OneArticlePage({ article }: Props){
    
 
     return(
-        <Container style={{marginBottom:"150px"}}>
+        <Container className="all" style={{marginBottom:"150px"}}>
         <Row>
           <Col className="col-lg-8 col-12 product-images-area">
             <div className="product-images -desktop">
@@ -184,12 +184,12 @@ export default function OneArticlePage({ article }: Props){
             clickable: true,
              }} 
           modules={[Pagination]} 
-           style={{height:"100%"}}
+           style={{height:"auto"}}
           >
               {article.images.map((image,index)=>{
             return(
               <SwiperSlide key={index} style={{justifyContent:"center",alignItems:"center",display:"flex"}}>
-          <img src={image} style={{height:"100%",maxWidth:"100%",objectFit:"contain"}} alt='product'></img>
+          <img src={image} style={{width:"100%"}} alt='product'></img>
           </SwiperSlide>
             )
           })}
@@ -201,11 +201,11 @@ export default function OneArticlePage({ article }: Props){
   
           <Col className="col-12 col-lg-4">
           <div className="product">
-            <h1 className="product__name h2">{article.name}</h1>
+            <h1 className="product__name">{article.name}</h1>
             <div className="product__prices">
               <div className="product__priceContent">
                 <div className="product__item">
-                  <span className="product__price -actual"> {article.price} </span>
+                  <span className="product__price -actual"> {article.price + " "} DA </span>
                 </div>
               </div>
             </div>
@@ -217,7 +217,7 @@ export default function OneArticlePage({ article }: Props){
               </div>
               )
             })}
-              <span className="product__colorName">{selectedColor.name}</span>
+              <span className="product__colorName">{selectedColor.name.toUpperCase()}</span>
             </div>
             <div className="product__sizes">
               <div className="overlay"></div>

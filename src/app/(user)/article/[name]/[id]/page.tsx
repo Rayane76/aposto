@@ -70,8 +70,6 @@ export default async function Article({ params }: { params: { name: string , id:
         await prisma.$disconnect();
     });
 
-    console.log(article);
-
     return(
         <div>
            <OneArticlePage article={article} />

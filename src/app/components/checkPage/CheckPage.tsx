@@ -203,7 +203,7 @@ export default function CheckPage({ source , wilayas }: Props){
                    onChange={(e)=>setOrder((prev)=>({...prev,[e.target.name]:e.target.value}))}
                    />
                 </label>
-                <button type="submit" className="btn btn-dark">Submit</button>
+                <button type="submit" className="btn submitBTN" style={{backgroundColor:"#F1EADA",borderColor:"#946e60",color:"#946e60"}}>Submit</button>
               </form>
               <hr></hr>
             </div>

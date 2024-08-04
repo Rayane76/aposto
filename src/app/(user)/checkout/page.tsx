@@ -1,4 +1,3 @@
-import Navbar from "@/app/components/navbar/Navbar";
 import "../../styles/check.css"
 import CheckPage from "@/app/components/checkPage/CheckPage";
 import { PrismaClient } from '@prisma/client'
