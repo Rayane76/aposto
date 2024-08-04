@@ -167,7 +167,7 @@ export default function Navbar({ categories }: Props) {
                                 )
                             })}
                             <div style={{width:"100%",display:"flex",justifyContent:"center",alignItems:"center"}}>
-                           <button onClick={()=>handleClickBuyNow()} className="btn btn-dark">Buy now</button>
+                           <button onClick={()=>handleClickBuyNow()} className="btn" style={{backgroundColor:"#F1EADA",borderColor:"#946e60",color:"#946e60"}}>Buy now</button>
                             </div>
                             </div>
                            }

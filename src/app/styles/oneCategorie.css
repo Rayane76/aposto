@@ -12,6 +12,7 @@
     height: auto;
     background-color: #fff;
     position: relative;
+    margin-bottom: 20px;
 }
 
 .imgArticle{
@@ -70,14 +71,14 @@
 
 @media screen and (max-width: 768px) {
     .title{
-        font-size: 16px;
+        font-size: 14px;
     }
     
     .details{
-        font-size: 16px;
+        font-size: 14px;
     }
     
     .price{
-        font-size: 18px;
+        font-size: 16px;
     }
 }
