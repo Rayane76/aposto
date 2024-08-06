@@ -10,6 +10,8 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { useState , useEffect } from 'react';
 import { MdDelete } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import { CiMenuKebab } from "react-icons/ci";
+
 
 
 interface Category {
@@ -122,7 +124,7 @@ export default function Navbar({ categories }: Props) {
 
       <Offcanvas placement="end" show={showCart} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title><PiHandbag className="icn" /> My Cart</Offcanvas.Title>
+          <Offcanvas.Title><PiHandbag className="icn" style={{marginRight:"5px"}} /> Mon Panier</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
         <div className="summary__body">
@@ -141,7 +143,7 @@ export default function Navbar({ categories }: Props) {
                                    <div className="product__attributes">
                                      <div style={{display:"flex",flexDirection:"row"}}>
                                       <span className="product__attrKey">
-                                      Size:
+                                      Taille:
                                       </span>
                                       <span className="product__attrValue">
                                       {article.size}
@@ -149,7 +151,7 @@ export default function Navbar({ categories }: Props) {
                                       </div>
                                       <div style={{display:"flex",flexDirection:"row"}}>
                                       <span className="product__attrKey">
-                                      Color:
+                                      Couleur:
                                       </span>
                                       <span className="product__attrValue">
                                       {article.color}
@@ -167,7 +169,7 @@ export default function Navbar({ categories }: Props) {
                                 )
                             })}
                             <div style={{width:"100%",display:"flex",justifyContent:"center",alignItems:"center"}}>
-                           <button onClick={()=>handleClickBuyNow()} className="btn" style={{backgroundColor:"#F1EADA",borderColor:"#946e60",color:"#946e60"}}>Buy now</button>
+                           <button onClick={()=>handleClickBuyNow()} className="btn" style={{backgroundColor:"#F1EADA",borderColor:"#946e60",color:"#946e60"}}>Acheter maintenant</button>
                             </div>
                             </div>
                            }
@@ -181,7 +183,7 @@ export default function Navbar({ categories }: Props) {
 
       <Offcanvas show={showMenu} onHide={handleCloseMenu}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title><PiHandbag className="icn me-2" /> PELUCHE</Offcanvas.Title>
+          <Offcanvas.Title><CiMenuKebab className="icn me-2" /> APOSTO</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <ul className="menu">
@@ -194,6 +196,21 @@ export default function Navbar({ categories }: Props) {
                 </li>
               )
             })}
+             <li className="menu__item">
+                <a className="menu__link with-arrow" href="/about">
+                        À propos de nous
+                            </a>
+                </li>
+                <li className="menu__item">
+                <a className="menu__link with-arrow" href="/faq">
+                      FAQ
+                            </a>
+                </li>
+                <li className="menu__item">
+                <a className="menu__link with-arrow" href="/delivery">
+                Livraison et retours
+                </a>
+                </li>
           </ul>
         </Offcanvas.Body>
         </Offcanvas>

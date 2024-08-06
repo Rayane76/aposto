@@ -57,7 +57,7 @@ export default function OneCatPage({ articles , clrs , name }: Props){
             <div className="miniNav">
             <Breadcrumbs separator="›" aria-label="breadcrumb">
         <Link underline="hover" color="inherit" href="/">
-          Home
+          Accueil
         </Link>
         <Typography color="text.primary">{name}</Typography>
       </Breadcrumbs>
@@ -65,7 +65,7 @@ export default function OneCatPage({ articles , clrs , name }: Props){
 
             <Dropdown>
     <Dropdown.Toggle style={{all:"unset",cursor:"pointer"}} id="dropdown-custom-components">
-      Filter by color
+      Filtrer par Couleur
     </Dropdown.Toggle>
 
     <Dropdown.Menu>
@@ -93,7 +93,7 @@ export default function OneCatPage({ articles , clrs , name }: Props){
                       <h1 className='title'>{article.name.toUpperCase()}</h1>
                       <h2 className='details' style={{marginBottom:"5px"}}>{name}</h2>
                       <div style={{display:"flex",alignItems:"center",marginBottom:"10px"}}>
-                      <h2 className='details'>{article.colors.length + " "} Colors</h2>
+                      <h2 className='details'>{article.colors.length + " "} Couleurs</h2>
                       <div className="products__colorOptions -twoColor">
                         {article.colors.map((color,index)=>{
                           return(

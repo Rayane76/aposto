@@ -67,13 +67,13 @@ export default function OneArticlePage({ article }: Props){
 
     }
 
-    const [selectedSize,setSelectedSize] = useState<string>("Size");
+    const [selectedSize,setSelectedSize] = useState<string>("Taille");
     const [error,setError] = useState<string>("");
 
     const handleSize = (e: React.MouseEvent<HTMLElement>,sizeSelected: string) => {
 
         if(selectedSize !== sizeSelected){
-            if(selectedSize !== "Size"){
+            if(selectedSize !== "Taille"){
             const checked = document.getElementsByClassName("checked");
             checked[0].classList.remove("checked");
             }
@@ -93,10 +93,10 @@ export default function OneArticlePage({ article }: Props){
       }
 
       const handleAddCart = () => {
-        if(selectedSize === "Size"){
+        if(selectedSize === "Taille"){
             const sizesOpen = document.getElementsByClassName("product__sizes");
             sizesOpen[0].classList.toggle("-mobileShow");
-            setError("Choose your size !");
+            setError("Choisir une taille !");
           }
             else{
                 const articleToBuy = {
@@ -131,10 +131,10 @@ export default function OneArticlePage({ article }: Props){
  }
 
       const handleBuy = () => {
-        if(selectedSize === "Size"){
+        if(selectedSize === "Taille"){
             const sizesOpen = document.getElementsByClassName("product__sizes");
             sizesOpen[0].classList.toggle("-mobileShow");
-            setError("Choose your size !");
+            setError("Choisir une taille !");
           }
           else{
              const articleToBuy = [{
@@ -222,7 +222,7 @@ export default function OneArticlePage({ article }: Props){
             <div className="product__sizes">
               <div className="overlay"></div>
               <div className="product__header -sizes">
-              <span className="product__label -sizes">Select your size : 
+              <span className="product__label -sizes">Choisir une taille : 
                 <span style={{color:"red"}}>{error}</span>
                 </span>
               </div>
@@ -245,7 +245,7 @@ export default function OneArticlePage({ article }: Props){
   
             <div className="product__shopTheLook">
             <Button onClick={()=>handleAddCart()} className="lg block" variant="outline-light" style={{borderColor:"#946e60"}}>
-            <span className="button__text" style={{color:"#946e60"}}>Add to Cart</span>
+            <span className="button__text" style={{color:"#946e60"}}>Ajouter au panier</span>
             </Button>
             </div>
   
@@ -255,7 +255,7 @@ export default function OneArticlePage({ article }: Props){
               {selectedSize} <IoIosArrowDown />
              </button>
              <div className="product__button -addToCart">
-             <Button onClick={()=>handleBuy()} className="block2 lg" style={{backgroundColor:"#F1EADA",borderColor:"#946e60",color:"#946e60"}}>Buy now</Button>
+             <Button onClick={()=>handleBuy()} className="block2 lg" style={{backgroundColor:"#F1EADA",borderColor:"#946e60",color:"#946e60"}}>Acheter maintenant</Button>
              </div>
             </div>
             </div>

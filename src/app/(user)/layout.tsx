@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from 'next/font/local'
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "../components/navbar/Navbar";
-import Footer from "../components/footer/Footer";
 import { PrismaClient } from '@prisma/client'
 
 
@@ -57,11 +56,7 @@ export default async function RootLayout({
       <body style={{overflowX:"hidden"}} className={myFont.className}>
         <Navbar categories={categories} />
         {children}
-        <Footer />
         </body>
     </html>
   );
 }
-
-
-// #B9907A

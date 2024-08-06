@@ -127,14 +127,14 @@ export default function CheckPage({ source , wilayas }: Props){
         <div className="infosDiv">
           <div className="personnalInfos">
             <div className="container">
-              <h1>Shipping</h1>
-              <p>Please enter your shipping details.</p>
+              <h1>Expédition</h1>
+              <p>Veuillez entrer vos coordonnées de livraison.</p>
               <hr />
               <form onSubmit={(e)=>{e.preventDefault();handleSubmit()}} className="form">
                 <div className="fields fields--2">
                   <label className="field">
                     <span className="field__label">
-                      Full name
+                      Nom Complet
                     </span>
                     <input
                       className="field__input"
@@ -147,7 +147,7 @@ export default function CheckPage({ source , wilayas }: Props){
                   </label>
                   <label className="field">
                     <span className="field__label">
-                      email
+                      Email
                     </span>
                     <input required name="email" className="field__input" type="email" id="lastname"
                     onChange={(e)=>setOrder((prev)=>({...prev,[e.target.name]:e.target.value}))}
@@ -156,7 +156,7 @@ export default function CheckPage({ source , wilayas }: Props){
                 </div>
                 <label className="field">
                   <span className="field__label">
-                    Phone number
+                    Numéro de tel
                   </span>
                   <input required name="phone" className="field__input" type="text" id="address" 
                   onChange={(e)=>setOrder((prev)=>({...prev,[e.target.name]:e.target.value}))}
@@ -188,7 +188,7 @@ export default function CheckPage({ source , wilayas }: Props){
                   </label>
                   <label className="field">
                     <span className="field__label">
-                      District
+                      Commune
                     </span>
                     <input required name="district" className="field__input" type="text" id="district" 
                   onChange={(e)=>setOrder((prev)=>({...prev,[e.target.name]:e.target.value}))}
@@ -197,13 +197,13 @@ export default function CheckPage({ source , wilayas }: Props){
                 </div>
                 <label className="field">
                   <span className="field__label">
-                    Address
+                    Adresse
                   </span>
                   <input required name="address" className="field__input" type="text" id="lastname"
                    onChange={(e)=>setOrder((prev)=>({...prev,[e.target.name]:e.target.value}))}
                    />
                 </label>
-                <button type="submit" className="btn submitBTN" style={{backgroundColor:"#F1EADA",borderColor:"#946e60",color:"#946e60"}}>Submit</button>
+                <button type="submit" className="btn submitBTN" style={{backgroundColor:"#F1EADA",borderColor:"#946e60",color:"#946e60"}}>Soumettre</button>
               </form>
               <hr></hr>
             </div>
@@ -214,7 +214,7 @@ export default function CheckPage({ source , wilayas }: Props){
               <div className="sidebar__content">
                    <div className="summary">
                       <div className="summary__header">
-                       <h5 className="summary__title">Order Summary</h5>
+                       <h5 className="summary__title">Récapitulatif de commande</h5>
                       </div>
 
                       <div className="summary__body">
@@ -231,7 +231,7 @@ export default function CheckPage({ source , wilayas }: Props){
                                    <div className="product__attributes">
                                      <div style={{display:"flex",flexDirection:"row"}}>
                                       <span className="product__attrKey">
-                                      Size:
+                                      Taille:
                                       </span>
                                       <span className="product__attrValue">
                                       {article.size}
@@ -239,7 +239,7 @@ export default function CheckPage({ source , wilayas }: Props){
                                       </div>
                                       <div style={{display:"flex",flexDirection:"row"}}>
                                       <span className="product__attrKey">
-                                      Color:
+                                      Couleur:
                                       </span>
                                       <span className="product__attrValue">
                                       {article.color}
@@ -261,7 +261,7 @@ export default function CheckPage({ source , wilayas }: Props){
                       <div className="summary__footer">
                          <div className="summaryItem -total">
                            <div className="summaryItem__title">
-                             TOTAL PRICE
+                             PRIX
                            </div>
                            <div className="summaryItem__value" data-qa="totalAmountToBePaid">
                              {articles === null ? "" : price}
@@ -273,7 +273,7 @@ export default function CheckPage({ source , wilayas }: Props){
                          </div>
                          <div className="summaryItem -total">
                          <div className="summaryItem__title">
-                             DELIVERY
+                             LIVRAISON
                            </div>
                            <div className="summaryItem__value" data-qa="totalAmountToBePaid">
                              {order.wilaya === "" ? "" : Number(order.total) - price}
@@ -285,7 +285,7 @@ export default function CheckPage({ source , wilayas }: Props){
                          </div>
                          <div className="summaryItem -total">
                          <div className="summaryItem__title">
-                             TOTAL
+                            PRIX TOTAL
                            </div>
                            <div className="summaryItem__value" data-qa="totalAmountToBePaid">
                              {order.wilaya === "" ? price : order.total}

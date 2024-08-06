@@ -4,6 +4,7 @@
     align-items: center;
     flex-wrap: wrap;
     min-height: 100vh;
+    height: auto;
     background-color: rgba(241, 234, 218, 0.1);
 }
 

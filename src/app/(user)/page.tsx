@@ -1,6 +1,7 @@
 import Categ from "../components/home/Categ";
 import Hero from "../components/home/Hero";
 import { PrismaClient } from '@prisma/client'
+import Footer from "../components/footer/Footer";
 
 
 const prisma = new PrismaClient()
@@ -44,6 +45,7 @@ export default async function Home() {
     <>
       <Hero />
       <Categ categories={categories} />
+      <Footer />
     </>
   );
 }
