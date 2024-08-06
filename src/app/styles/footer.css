@@ -1,0 +1,148 @@
+.footer{
+    height: 50vh;
+    border-style: solid none none none;
+    border-width: 0.1px;
+    border-color: #946e60;
+    background-color: #F1EADA;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.d1{
+  width: 25%;
+  margin-top: 60px;
+  margin-left: 10%;
+}
+
+.d2{
+  width: 25%;
+  margin-top: 65px;
+}
+
+.d3{
+  width: 25%;
+  margin-right: 10%;
+  margin-top: 65px;
+  gap: 15px;
+}
+
+.icnDv{
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tTL{
+    color: #946e60;
+    margin-bottom: 30px;
+    font-size: 40px;
+}
+
+.desc{
+    color: #946e60;
+    width: 95%;
+    text-align: justify;
+    font-size: 15px;
+}
+
+.cst{
+    color: #946e60;
+    font-size: 20px;
+}
+
+.nmbr{
+    color: #946e60;
+    font-size: 18px;
+}
+
+.flw{
+    color: #946e60;
+    font-size: 20px;
+}
+
+.icnFtr{
+    color: white;
+    height: 30px;
+    width: 30px;
+}
+
+.icnFtr2{
+    color: #0072b1;
+    height: 30px;
+    width: 30px;
+}
+
+.lstQst{
+    color: #946e60;
+    font-size: 20px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .footer{
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: unset;
+        flex-direction: column;
+        padding: 30px;
+    }
+     
+    .d1{
+        width: 100%;
+        margin: 0px;
+        align-items: center;
+      }
+      
+      .d2{
+        width: 100%;
+        margin: 0px;
+      }
+      
+      .d3{
+        width: 100%;
+        margin: 0px;
+        gap: 0;
+      }
+
+    .tTL{
+        font-size: 30px;
+        margin-bottom: 0;
+    }
+
+    .icnDv{
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .cst{
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+    .nmbr{
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+    .flw{
+        font-size: 12px;
+        font-weight: 100;
+    }
+    .icnFtr{
+        height: 20px;
+        width: 20px;
+        color: white;
+    }
+    .lstQst{
+        font-size: 18px;
+        margin-top: 30px;
+        cursor: pointer;
+        margin-left: 10px;
+        margin-bottom: 0;
+    }
+    .desc{
+        text-align: justify;
+        margin-top: 20px;
+        margin-bottom: 50px;
+        width: 90%;
+    }
+}

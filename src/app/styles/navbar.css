@@ -151,9 +151,6 @@ ol, ul {
         height: 83px;
         transition: height 300ms ease;
     }
-    .new-header__button.-menu, .new-header__button.-search {
-        display: none;
-    }
     .navbar{
         height: 2.6875rem;
         background-color: #F1EADA;

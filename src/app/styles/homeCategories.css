@@ -1,5 +1,6 @@
 .cats{
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
     display: flex;
     justify-content: space-around;
     align-items: center;

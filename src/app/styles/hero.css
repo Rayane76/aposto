@@ -1,0 +1,22 @@
+
+
+.section{
+    height: calc(100vh - 120.625px);
+}
+
+.hero{
+object-fit: cover;
+object-position: top;
+width: 100%;
+opacity: 0.9;
+height: 100%;
+}
+
+@media screen and (max-width: 992px) {
+    .section{
+        height: calc(100vh - 59px);
+    }
+    .hero{
+        object-position: center;
+    }
+}
