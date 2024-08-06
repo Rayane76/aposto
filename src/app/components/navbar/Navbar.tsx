@@ -130,7 +130,7 @@ export default function Navbar({ categories }: Props) {
         <div className="summary__body">
                          <div className="summary__products">
                            {articlesCart === null ? "" : 
-                           articlesCart.length === 0 ? "Cart is empty" :
+                           articlesCart.length === 0 ? "Le panier est vide" :
                             <div>
                             {articlesCart.map((article:any,index:number)=>{
                                 return(

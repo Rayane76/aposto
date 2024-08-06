@@ -2,6 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 interface Wilaya {
@@ -30,6 +32,8 @@ function formatDate(date: Date) {
 export default function CheckPage({ source , wilayas }: Props){
 
   const router = useRouter();
+  const [open, setOpen] = useState(false);
+
 
   const [order,setOrder] = useState({
     fullName: "",
@@ -72,6 +76,7 @@ export default function CheckPage({ source , wilayas }: Props){
     },[])
 
     const handleSubmit = async () => {
+      setOpen(true);
       const currentDate = new Date();
       const formattedDate = formatDate(currentDate).toString();
 
@@ -110,7 +115,17 @@ export default function CheckPage({ source , wilayas }: Props){
             mode: "no-cors",
             body: formData,
             })
-  
+   
+            if(source === "cart"){
+              localStorage.removeItem("cart");
+              localStorage.removeItem("price");
+            }
+
+            else if (source === "article"){
+              sessionStorage.removeItem("article");
+            }
+
+
           router.push("/");
         } catch (error) {
           console.log(error);
@@ -295,6 +310,14 @@ export default function CheckPage({ source , wilayas }: Props){
                       </div>
                    </div>
               </div>
+
+
+        <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
 
         </div>
       </div>
