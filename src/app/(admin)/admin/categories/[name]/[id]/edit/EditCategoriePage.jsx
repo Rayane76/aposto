@@ -43,13 +43,12 @@ export default function EditCategoriePage({ catImage , catHide , name , id }){
     const handleSubmit = async (e) => {
        e.preventDefault();
        if (!_.isEqual(original, modified)) {
+        setModalShow(false);
+        setModalShowSpinner(true);
         const changes = _.omitBy(modified, (value, key) => _.isEqual(value, original[key]));
         await editCategorie(changes , id);
-        router.push("/admin/categories");
        }
-       else {
-        console.log('No changes detected');
-      }
+       router.push("/admin/categories");
 
     }
 

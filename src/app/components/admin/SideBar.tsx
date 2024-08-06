@@ -4,6 +4,8 @@ import { IoHomeOutline } from "react-icons/io5";
 import { MdOutlineDesktopWindows } from "react-icons/md";
 import { FiTruck } from "react-icons/fi";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react"
+import { FaSignOutAlt } from "react-icons/fa";
 
 type SideProps = {
     cls?: string
@@ -38,6 +40,10 @@ export default function SideBar({ cls }: SideProps){
           </a>
         </li>
       ))}
+      <li className="tags" style={{cursor:"pointer"}} onClick={()=>signOut()}>
+        <FaSignOutAlt style={{marginRight:"10px"}} />
+        Sign Out
+        </li>
     </ul>
         </div>
     )

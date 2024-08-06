@@ -14,7 +14,11 @@ interface Wilaya {
 }[]
 
 async function getWilayas(): Promise<Wilaya[]> {
-     const res = await prisma.wilaya.findMany({});
+     const res = await prisma.wilaya.findMany({
+        where: {
+            hide: false
+        }
+     });
 
      if(!res){
         throw new Error("failed to fetch");
