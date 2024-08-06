@@ -197,7 +197,7 @@ export default function Navbar({ categories }: Props) {
               )
             })}
              <li className="menu__item">
-                <a className="menu__link with-arrow" href="/about">
+                <a className="menu__link with-arrow" href="/about-us">
                         À propos de nous
                             </a>
                 </li>
@@ -207,7 +207,7 @@ export default function Navbar({ categories }: Props) {
                             </a>
                 </li>
                 <li className="menu__item">
-                <a className="menu__link with-arrow" href="/delivery">
+                <a className="menu__link with-arrow" href="/delivery-infos">
                 Livraison et retours
                 </a>
                 </li>

@@ -26,13 +26,13 @@ export default function Footer(){
            </div>
            </div>
            <div className="d-flex align-items-center flex-column d3">
-           <a href="/aboutUs">
+           <a href="/about-us">
            <p className="lstQst">À propos de nous<MdKeyboardArrowRight /></p>
            </a>
            <a href="/faq">
            <p className="lstQst">FAQ <MdKeyboardArrowRight /></p>
            </a>
-           <a href="/deliveryInfos">
+           <a href="/delivery-infos">
            <p className="lstQst">Livraison et retours <MdKeyboardArrowRight /></p>
            </a>
            </div>
