@@ -5,6 +5,7 @@
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
+    background-color: rgba(241, 234, 218, 0.1);
 }
 
 .categorieDiv{

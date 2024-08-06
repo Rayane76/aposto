@@ -1,5 +1,5 @@
 .footer{
-    height: 50vh;
+    min-height: 50vh;
     border-style: solid none none none;
     border-width: 0.1px;
     border-color: #946e60;
@@ -80,7 +80,7 @@
 
 @media screen and (max-width: 768px) {
     .footer{
-        height: 90vh;
+        min-height: 90vh;
         display: flex;
         align-items: center;
         justify-content: unset;

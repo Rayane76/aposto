@@ -110,7 +110,7 @@ export default function CheckPage({ source , wilayas }: Props){
         formData.append("TOTAL", order.total);
         formData.append("STATUS", "Waiting");
         try {
-          await fetch("https://script.google.com/macros/s/AKfycby35eazAahsGnxYKoLa2Vw0GVjjdw55UtRKd9Ax15WnvMF6_EBEx2tF3g7x70yBtwN9GQ/exec",{
+          await fetch("https://script.google.com/macros/s/AKfycby0sYZ1AXyWlSCOuxWvV21bExGb4kTvD-Llj-zoU7kwPvJXEueVMXyC6a5Owayq7gxw/exec",{
             method: "POST",
             mode: "no-cors",
             body: formData,
@@ -126,7 +126,7 @@ export default function CheckPage({ source , wilayas }: Props){
             }
 
 
-          router.push("/");
+          router.push("/thanks");
         } catch (error) {
           console.log(error);
         }
@@ -173,8 +173,8 @@ export default function CheckPage({ source , wilayas }: Props){
                   <span className="field__label">
                     Numéro de tel
                   </span>
-                  <input required name="phone" className="field__input" type="text" id="address" 
-                  onChange={(e)=>setOrder((prev)=>({...prev,[e.target.name]:e.target.value}))}
+                  <input value={order.phone} pattern="\d{9,}" maxLength={12} minLength={9} required name="phone" className="field__input" type="text" id="address" 
+                  onChange={(e)=>{const value = e.target.value.replace(/\D/g, ''); setOrder((prev)=>({...prev,[e.target.name]:value}))}}
                   />
                 </label>
                 <div className="fields fields--2">
