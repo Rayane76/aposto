@@ -157,7 +157,9 @@ export default function EditArticlePage({ article , categorieName , categorieId 
         }
 
         //add deleted color id to a deletedColors array
+        if(modifiedArticle.colors[index].id){
         setDeletedColors((prev)=>([...prev,modifiedArticle.colors[index].id]));
+        }
         setModifiedArticle((prev)=>({...prev,colors:prev.colors.filter((_,i)=> i !== index)}));
         setModalShow(false);
         setIndexOfColorToDelete(null);
@@ -252,6 +254,16 @@ export default function EditArticlePage({ article , categorieName , categorieId 
         if(modifiedSizes.length > 0){
             modifySz = modifiedSizes;
         }
+
+        console.log("editArtcl:" + editArtcl);
+
+        console.log("createClr:" + createClr);
+
+        console.log("deleteClr:" + deleteClr);
+
+        console.log("modifyClr:" + modifyClr);
+
+        console.log("modifySz:" + modifySz);
 
         await updateArticle(editArtcl,createClr,deleteClr,modifyClr,modifySz);
 
