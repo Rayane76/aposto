@@ -255,16 +255,6 @@ export default function EditArticlePage({ article , categorieName , categorieId 
             modifySz = modifiedSizes;
         }
 
-        console.log("editArtcl:" + editArtcl);
-
-        console.log("createClr:" + createClr);
-
-        console.log("deleteClr:" + deleteClr);
-
-        console.log("modifyClr:" + modifyClr);
-
-        console.log("modifySz:" + modifySz);
-
         await updateArticle(editArtcl,createClr,deleteClr,modifyClr,modifySz);
 
     }
