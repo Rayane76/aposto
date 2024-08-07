@@ -6,6 +6,14 @@ import Footer from "@/app/components/footer/Footer";
 const prisma = new PrismaClient()
 
 
+export async function generateMetadata({ params }: { params : { categorie: string , id: string } }){
+    return {
+     title: params.categorie,
+    }
+ }
+ 
+
+
 interface Article {
   id: string,
   name: string,

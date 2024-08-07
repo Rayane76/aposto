@@ -1,9 +1,14 @@
-import Navbar from "@/app/components/navbar/Navbar"
 import { PrismaClient } from '@prisma/client'
 import "../../../../styles/oneArticle.css"
 import OneArticlePage from "@/app/components/oneArticlePage/OneArticlePage"
 import Footer from "@/app/components/footer/Footer"
 
+
+export async function generateMetadata({ params }: { params : { name: string , id: string } }){
+    return {
+     title: params.name,
+    }
+ }
 
 const prisma = new PrismaClient()
 

@@ -1,4 +1,10 @@
 import Footer from "@/app/components/footer/Footer";
+import type { Metadata } from "next";
+
+
+export const metadata: Metadata = {
+    title: "À propos de nous"
+  };
 
 
 export default function About(){

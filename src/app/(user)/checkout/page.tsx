@@ -1,6 +1,13 @@
 import "../../styles/check.css"
 import CheckPage from "@/app/components/checkPage/CheckPage";
 import { PrismaClient } from '@prisma/client'
+import type { Metadata } from "next";
+
+
+export const metadata: Metadata = {
+    title: "Commander"
+  };
+
 
 
 const prisma = new PrismaClient()
@@ -26,6 +33,8 @@ async function getWilayas(): Promise<Wilaya[]> {
     
       return res;
 }
+
+
 
 
 export default async function Checkout({ searchParams }: { searchParams : { source : string } }){
