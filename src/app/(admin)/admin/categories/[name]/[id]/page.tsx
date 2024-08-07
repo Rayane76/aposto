@@ -45,11 +45,11 @@ export default async function Categorie({ params }: { params: { name: string , i
         <Link underline="hover" color="inherit" href={"/admin/categories"}>
           Categories
         </Link>
-        <Typography color="text.primary">{params.name}</Typography>
+        <Typography color="text.primary">{decodeURIComponent(params.name)}</Typography>
       </Breadcrumbs>
          <div style={{display:"flex",justifyContent:"space-between",marginTop:"20px"}}>
-         <a href={'/admin/categories/' + params.name + '/' + params.id + '/edit'}>Edit Categorie</a>
-         <a href={'/admin/categories/' + params.name + '/' + params.id + '/new'}>Add Article</a>
+         <a href={'/admin/categories/' + decodeURIComponent(params.name) + '/' + params.id + '/edit'}>Edit Categorie</a>
+         <a href={'/admin/categories/' + decodeURIComponent(params.name) + '/' + params.id + '/new'}>Add Article</a>
          </div>
          {
           articles.length === 0 ? 
@@ -63,7 +63,7 @@ export default async function Categorie({ params }: { params: { name: string , i
             return(
               <a
                   key={index}
-                  href={"/admin/categories/" + params.name + "/" + params.id + "/article/" + article.name + "/" + article.id }
+                  href={"/admin/categories/" + decodeURIComponent(params.name) + "/" + params.id + "/article/" + article.name + "/" + article.id }
                 >
                   <div className="d-flex flex-column">
                     <img

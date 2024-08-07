@@ -31,11 +31,9 @@ export default async function ArticlePage({ params }){
         await prisma.$disconnect();
     })
 
-    console.log(article);
-
 
     
     return(
-        <EditArticlePage article={article} categorieName={params.name} categorieId={params.id} idArticle={params.articleId} />
+        <EditArticlePage article={article} categorieName={decodeURIComponent(params.name)} categorieId={params.id} idArticle={params.articleId} />
     )
 }

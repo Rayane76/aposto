@@ -6,7 +6,7 @@ import Footer from "@/app/components/footer/Footer"
 
 export async function generateMetadata({ params }: { params : { name: string , id: string } }){
     return {
-     title: params.name,
+     title: decodeURIComponent(params.name),
     }
  }
 
