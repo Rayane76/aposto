@@ -183,9 +183,11 @@ export default function EditArticlePage({ article , categorieName , categorieId 
 
     const handleSubmit = async () => {
 
+        setModalShow(false);
+
+
         if(modifiedArticle.name !== "" && modifiedArticle.price != "" && modifiedArticle.images.length > 0 && modifiedArticle.colors.length > 0){
 
-        setModalShow(false);
         setModalShowSpinner(true);
 
         let editArtcl = undefined;
@@ -253,9 +255,13 @@ export default function EditArticlePage({ article , categorieName , categorieId 
 
         await updateArticle(editArtcl,createClr,deleteClr,modifyClr,modifySz);
 
-        router.push("/admin/categories/" + categorieName + "/" + categorieId);
-
     }
+
+    setModalShowSpinner(false);
+
+    router.push("/admin/categories/" + categorieName + "/" + categorieId);
+
+
 
     }
 
