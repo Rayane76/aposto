@@ -1,5 +1,6 @@
 'use server'
 import { PrismaClient } from '@prisma/client'
+import { revalidatePath } from 'next/cache'
 
 
 
@@ -17,4 +18,7 @@ export async function updateWilaya(id: string, price:number , hide: boolean) {
     }).finally(async () => {
         await prisma.$disconnect();
     })
+
+    revalidatePath('/(user)/checkout');
+    revalidatePath('/(admin)/admin/wilayas');
 }

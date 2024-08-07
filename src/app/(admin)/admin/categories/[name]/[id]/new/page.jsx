@@ -102,7 +102,7 @@ export default function NewArticle({ params }){
         }
 
 
-        await createArticle(article);
+        await createArticle(article,params.name,params.id);
 
         router.push("/admin/categories/" + params.name + "/" + params.id);
 

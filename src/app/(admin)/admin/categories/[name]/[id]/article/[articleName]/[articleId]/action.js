@@ -1,5 +1,7 @@
 'use server'
 import { PrismaClient } from '@prisma/client'
+import { revalidatePath } from 'next/cache'
+
 
 
 
@@ -65,6 +67,10 @@ export async function updateArticle(editArtcl,createClr,deleteClr,modifyClr,modi
 
 
      await prisma.$disconnect();
+
+     revalidatePath('/(user)', 'layout');
+     revalidatePath('/(admin)/admin', 'layout');
+
 }
 
 export async function deleteArticle(id){
@@ -85,4 +91,6 @@ export async function deleteArticle(id){
 
     await prisma.$disconnect();
 
+    revalidatePath('/(user)', 'layout');
+    revalidatePath('/(admin)/admin', 'layout');
 }

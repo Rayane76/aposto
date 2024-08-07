@@ -1,11 +1,12 @@
 'use server'
 import { PrismaClient } from '@prisma/client'
+import { revalidatePath } from 'next/cache'
+
 
 
 
 
 export async function createCategorie(categorieNew) {
-    console.log(categorieNew);
     const prisma = new PrismaClient()
     await prisma.categorie.create({
         data: {
@@ -16,4 +17,6 @@ export async function createCategorie(categorieNew) {
     }).finally(async () => {
         await prisma.$disconnect();
     })
+    revalidatePath('/(user)', 'layout');
+    revalidatePath('/(admin)/admin', 'layout');
 }

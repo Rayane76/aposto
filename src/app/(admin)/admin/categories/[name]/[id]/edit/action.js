@@ -1,5 +1,6 @@
 'use server'
 import { PrismaClient } from '@prisma/client'
+import { revalidatePath } from 'next/cache'
 
 
 
@@ -13,6 +14,9 @@ export async function editCategorie(changes , id) {
     .finally(async () => {
         await prisma.$disconnect();
     })
+
+    revalidatePath('/(user)', 'layout');
+    revalidatePath('/(admin)/admin', 'layout');
 }
 
 export async function deleteCategorie(id) {
@@ -44,7 +48,10 @@ export async function deleteCategorie(id) {
         },
     });
 
+    revalidatePath('/(user)', 'layout');
+    revalidatePath('/(admin)/admin', 'layout');
 
-        await prisma.$disconnect();
+
+    await prisma.$disconnect();
 }
 
