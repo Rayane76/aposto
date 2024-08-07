@@ -53,8 +53,9 @@ export default function NewArticle({ params }){
 
    const handleSubmitArticle = async () => {
     setModalShow(false);
-    setModalShowSpinner(true);
     if(colors.length > 0 && newArticle.images.length > 0 && (sizeType === "xsValues" || (sizeType === "manually" && sizes.length > 0))){
+
+       setModalShowSpinner(true);
 
         let colorSizes = [];
 
@@ -103,15 +104,13 @@ export default function NewArticle({ params }){
 
 
         await createArticle(article,params.name,params.id);
-
-        router.push("/admin/categories/" + params.name + "/" + params.id);
-
-
     }
 
-    else{
-        console.log("conditions not fullfilled")
-    }
+    setModalShowSpinner(false);
+
+    router.push("/admin/categories/" + params.name + "/" + params.id);
+
+
 }
 
 
