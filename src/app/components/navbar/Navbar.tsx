@@ -11,6 +11,8 @@ import { useState , useEffect } from 'react';
 import { MdDelete } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { CiMenuKebab } from "react-icons/ci";
+import Image from "next/image";
+
 
 
 
@@ -136,7 +138,7 @@ export default function Navbar({ categories }: Props) {
                                 return(
                                     <div key={index} className="product">
                                <a className="product__area -image" href={"/article/" + article.name + "/" + article.id}>
-                                <img className="articleImg" src={article.image} alt={article.name}></img>
+                                <Image height={0} width={0} sizes="100vw" className="articleImg" src={article.image} alt={article.name}></Image>
                                </a>
                                <div className="product__area -content">
                                    <h4 className="product__title">{article.name}</h4>

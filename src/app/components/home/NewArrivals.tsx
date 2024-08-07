@@ -7,6 +7,8 @@ import "swiper/css/thumbs";
 import "swiper/css/pagination";
 import { FreeMode, Navigation, Pagination } from "swiper/modules";
 import "../../styles/newArrivals.css"
+import Image from "next/image";
+
 
 
 interface Article {
@@ -73,7 +75,7 @@ export default function NewArrivals({ articles }: Props) {
               key={index}
              >
                <a className="article" key={index} href={"/article/" + article.name + "/" + article.id}>
-                      <img src={article.images[0]} alt="article" className="imgArticle"></img>
+                      <Image alt={article.name} height={0} width={0} sizes="100vw" src={article.images[0]} className="imgArticle"></Image>
                       <h2 className='details' style={{marginBottom:"5px",marginTop:"5px"}}>{article.name}</h2>
                       <div style={{display:"flex",alignItems:"center",marginBottom:"10px"}}>
                       <h2 className='details'>{article.colors.length + " "} Couleurs</h2>

@@ -9,6 +9,8 @@ import { IoIosArrowDown } from "react-icons/io";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+
 
 interface Article {
     id: string,
@@ -164,11 +166,15 @@ export default function OneArticlePage({ article }: Props){
                       return (
                         <li key={index} className="swiper-slide">
                           <div className="o-gallery__imgContainer productGallery__container">
-                            <img
+                            <Image
+                              alt="product"
+                              height={0}
+                              width={0}
+                              sizes="100vw"
                               id="product-image"
                               className="o-gallery__img lazy -loaded"
                               src={image}
-                            />
+                            ></Image>
                           </div>
                         </li>
                       );
@@ -189,7 +195,7 @@ export default function OneArticlePage({ article }: Props){
               {article.images.map((image,index)=>{
             return(
               <SwiperSlide key={index} style={{justifyContent:"center",alignItems:"center",display:"flex"}}>
-          <img src={image} style={{width:"100%"}} alt='product'></img>
+          <Image height={0} width={0} sizes="100vw" src={image} style={{width:"100%",height:"100%"}} alt='product'></Image>
           </SwiperSlide>
             )
           })}

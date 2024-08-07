@@ -5,6 +5,8 @@ import "../../styles/oneCategorie.css"
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
+import Image from "next/image";
+
 
 
 interface Article {
@@ -89,7 +91,7 @@ export default function OneCatPage({ articles , clrs , name }: Props){
                 if(selectedColors.length === 0 || selectedColors.some(color => article.colors.some(obj => obj.secName === color))){
                 return(
                     <a className="article" key={index} href={"/article/" + article.name + "/" + article.id}>
-                      <img src={article.images[0]} alt="article" className="imgArticle"></img>
+                      <Image height={0} width={0} sizes='100vw' src={article.images[0]} alt={article.name} className="imgArticle"></Image>
                       <h1 className='title'>{article.name.toUpperCase()}</h1>
                       <h2 className='details' style={{marginBottom:"5px"}}>{name}</h2>
                       <div style={{display:"flex",alignItems:"center",marginBottom:"10px"}}>

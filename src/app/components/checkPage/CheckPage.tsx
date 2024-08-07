@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import Image from "next/image";
+
 
 
 interface Wilaya {
@@ -238,8 +240,8 @@ export default function CheckPage({ source , wilayas }: Props){
                             articles.map((article:any,index:number)=>{
                                 return(
                                     <div key={index} className="product">
-                               <a className="product__area -image" href={"/articles/" + article.name + "/" + article.id}>
-                                <img className="articleImg" src={article.image} alt={article.name}></img>
+                               <a className="product__area -image" href={"/article/" + article.name + "/" + article.id}>
+                                <Image height={0} width={0} sizes="100vw" className="articleImg" src={article.image} alt={article.name}></Image>
                                </a>
                                <div className="product__area -content">
                                    <h4 className="product__title">{article.name}</h4>
