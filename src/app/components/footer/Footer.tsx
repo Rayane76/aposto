@@ -15,7 +15,7 @@ export default function Footer(){
 </div>
             <div className="d-flex align-items-center flex-column d2">
            <p className="cst">Service Client :</p>
-           <p className="nmbr">1212121212</p>
+           <p className="nmbr">0676573719</p>
            <p className="flw">Suivez-nous :</p>
            <div className="d-flex icnDv">
             <a href="https://www.instagram.com/aposto_store?igsh=MTA4emVpNXl1cjJmbA==">
