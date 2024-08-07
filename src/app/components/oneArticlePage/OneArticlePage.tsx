@@ -219,7 +219,7 @@ export default function OneArticlePage({ article }: Props){
             {article.colors.map((color,j)=>{
               return(
                   <div onClick={()=>handleSelectColor(color)} key={j} className="product__color">
-                <span style={{display:"block",width:"100%",height:"100%",borderRadius:"50%",backgroundColor:color.name.toLowerCase()}}></span>
+                <span style={{display:"block",width:"100%",height:"100%",borderRadius:"50%",backgroundColor:color.secName.toLowerCase()}}></span>
               </div>
               )
             })}
