@@ -12,6 +12,8 @@ import { deleteArticle, updateArticle } from './action';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Spinner from 'react-bootstrap/Spinner';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 
 
@@ -326,7 +328,7 @@ export default function EditArticlePage({ article , categorieName , categorieId 
         <div style={{display:"flex",gap:"20px",marginBottom:"20px"}}>
           <label style={{width:"100px",paddingTop:"8px"}}>- {color.name}</label>
           <label style={{width:"100px",paddingTop:"8px"}}>{color.secName}</label>
-          <Checkbox type='checkbox' checked={color.isOutColor} onChange={(e)=>handleModifyColor(index,e.target.checked)} />
+          <FormControlLabel control={<Checkbox type='checkbox' checked={color.isOutColor} onChange={(e)=>handleModifyColor(index,e.target.checked)} />} label="Hide" />
           <MdDelete style={{marginTop:"10px",marginLeft:"10px",height:"20px",width:"20px",cursor:"pointer"}} onClick={()=>{setIndexOfColorToDelete(index);setClickedBtn("color");setModalShow(true)}} />
         </div>
         <label className='mb-4'>Sizes : </label>
@@ -335,7 +337,7 @@ export default function EditArticlePage({ article , categorieName , categorieId 
             return(
                 <div key={j} style={{display:"flex",gap:"20px",marginBottom:"20px"}}>
           <label style={{width:"100px",paddingTop:"8px"}}>- {size.name}</label>
-          <Checkbox checked={size.isOutSize} onChange={(e)=>handleModifyColorSize(index,j,e.target.checked)} />
+          <FormControlLabel control={<Checkbox checked={size.isOutSize} onChange={(e)=>handleModifyColorSize(index,j,e.target.checked)} />} label="Hide" />
         </div>
             )
          })}
