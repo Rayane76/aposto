@@ -8,7 +8,7 @@ const prisma = new PrismaClient()
 
 export async function generateMetadata({ params }: { params : { categorie: string , id: string } }){
     return {
-     title: decodeURIComponent(params.categorie),
+     title: decodeURI(params.categorie),
     }
  }
  
@@ -91,7 +91,7 @@ export default async function OneCategorie({ params }: { params : { categorie: s
 
     return(
         <div>
-            <OneCatPage articles={articles} clrs={filteredColors} name={decodeURIComponent(params.categorie)} />
+            <OneCatPage articles={articles} clrs={filteredColors} name={decodeURI(params.categorie)} />
             <Footer />
         </div>
     )

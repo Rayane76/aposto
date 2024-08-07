@@ -27,6 +27,6 @@ export default async function EditCategorie({ params }) {
 
 
     return(
-         <EditCategoriePage catImage={categorie.image} catHide={categorie.hide} name={params.name} id={params.id} />
+         <EditCategoriePage catImage={categorie.image} catHide={categorie.hide} name={decodeURI(params.name)} id={params.id} />
     )
 }

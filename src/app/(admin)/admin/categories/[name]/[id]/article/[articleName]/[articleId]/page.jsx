@@ -34,6 +34,6 @@ export default async function ArticlePage({ params }){
 
     
     return(
-        <EditArticlePage article={article} categorieName={decodeURIComponent(params.name)} categorieId={params.id} idArticle={params.articleId} />
+        <EditArticlePage article={article} categorieName={decodeURI(params.name)} categorieId={params.id} idArticle={params.articleId} />
     )
 }
