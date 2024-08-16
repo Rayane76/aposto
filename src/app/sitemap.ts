@@ -1,6 +1,8 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
+export const revalidate = 86400;
+
 
 export default async function sitemap() {
 

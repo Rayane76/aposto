@@ -190,7 +190,7 @@ export default function CheckPage({ source , wilayas }: Props){
                     setOrder((prev) => ({
                       ...prev,
                       wilaya: e.target.value,
-                      total: prev.total + (selectedWilaya ? selectedWilaya.price : 0),
+                      total: price + (selectedWilaya ? selectedWilaya.price : 0),
                     }));
                   }}
                     >
