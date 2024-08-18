@@ -3,6 +3,7 @@ import localFont from 'next/font/local'
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "../components/navbar/Navbar";
 import { PrismaClient } from '@prisma/client'
+import { Analytics } from "@vercel/analytics/react"
 
 
 const prisma = new PrismaClient()
@@ -59,6 +60,7 @@ export default async function RootLayout({
       <body style={{overflowX:"hidden"}} className={myFont.className}>
         <Navbar categories={categories} />
         {children}
+        <Analytics />
         </body>
     </html>
   );
